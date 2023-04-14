@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "193759210507",
+    "project_id": "tarea-grupo",
+    "storage_bucket": "tarea-grupo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193759210507:android:397f1a49def1824db16b0e",
+        "android_client_info": {
+          "package_name": "com.example.tareagrupo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193759210507-3ppp27p4gvo6g8d85ce87gr7ok64rt8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzSnJhzzM9140hWR74hVS3FLq2jlth1XU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193759210507-3ppp27p4gvo6g8d85ce87gr7ok64rt8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
