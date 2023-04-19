@@ -27,6 +27,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri mImagenUri;
 
     private StorageReference mStorageRef;
+    FirebaseDatabase firebaseDatabase;
+    Button btnlista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FirebaseApp.initializeApp(this);
+        firebaseDatabase=FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mStorageRef = FirebaseStorage.getInstance().getReference("imagenes");
 
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         mImagenSeleccionada = findViewById(R.id.imagenSelecionada);
         mBtnSubirFoto = findViewById(R.id.btnSubirFoto);
+        btnlista  = findViewById(R.id.btnlista);
 
         mBtnSubirFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +77,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 guardarDatos();
+            }
+        });
+        btnlista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent list = new Intent(getApplicationContext(),ActivityMostrar.class);
+                startActivity(list);
             }
         });
     }
@@ -134,13 +146,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         // Crear un objeto de datos con los valores del formulario y la URL de la imagen
-                        Usuario usuario = new Usuario(nombres, apellidos, fechaN, uri.toString());
-
-                        // Obtener una nueva clave para el usuario
-                        String usuarioId = mDatabase.child("usuarios").push().getKey();
+                        //String id = UUID.randomUUID().toString();
+                        Usuario usuario = new Usuario();
+                        usuario.setid(UUID.randomUUID().toString());
+                        usuario.setNombres(nombres);
+                        usuario.setApellidos(apellidos);
+                        usuario.setFechaN(fechaN);
+                        usuario.setImagenUrl(uri.toString());
 
                         // Guardar los datos del usuario en la base de datos de Firebase
-                        mDatabase.child("usuarios").child(usuarioId).setValue(usuario);
+                        mDatabase.child("usuarios").child(usuario.getid()).setValue(usuario);
 
                         // Mostrar un mensaje de éxito
                         Toast.makeText(MainActivity.this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
@@ -153,24 +168,72 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error al subir imagen: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        limpiarCampos();
+    }
+    private void limpiarCampos() {
+        mNombresField.setText("");
+        mApellidosField.setText("");
+        mFechaNField.setText("");
+        mImagenSeleccionada.setImageResource(R.drawable.foto);
     }
 
     // Clase para representar los datos del usuario
-    private static class Usuario {
+    public static class Usuario {
         public String nombres;
         public String apellidos;
         public String fechaN;
         public String imagenUrl;
+        public String id;
 
         public Usuario() {
             // Constructor vacío requerido para llamadas a DataSnapshot.getValue(Usuario.class)
         }
 
-        public Usuario(String nombres, String apellidos, String fechaN, String imagenUrl) {
+
+        public String getNombres() {
+            return nombres;
+        }
+
+        public void setNombres(String nombres) {
             this.nombres = nombres;
+        }
+
+        public String getApellidos() {
+            return apellidos;
+        }
+
+        public void setApellidos(String apellidos) {
             this.apellidos = apellidos;
+        }
+
+        public String getFechaN() {
+            return fechaN;
+        }
+
+        public void setFechaN(String fechaN) {
             this.fechaN = fechaN;
+        }
+
+        public String getid() {
+            return id;
+        }
+
+        public void setid(String uid) {
+            id = uid;
+        }
+
+        public String getImagenUrl() {
+            return imagenUrl;
+        }
+
+        public void setImagenUrl(String imagenUrl) {
             this.imagenUrl = imagenUrl;
+        }
+
+        @Override
+        public String toString()
+        {
+            return nombres+" "+apellidos;
         }
     }
 }

@@ -25,8 +25,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imagenSelecionada"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/foto"
         app:civ_border_color="@color/white"
@@ -44,17 +44,17 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253">
+        app:layout_constraintVertical_bias="0.185">
 
     </ImageButton>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="455dp"
+        android:layout_height="490dp"
         android:background="@drawable/background_bottom"
         android:orientation="vertical"
         android:padding="32dp"
@@ -121,7 +121,7 @@
             android:background="@drawable/edit_text_background"
             android:hint="Ingrese su fecha de nacimiento"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="15dp"
             android:textColorHint="#C0C0C0"/>
 
         <Button
@@ -131,6 +131,15 @@
             android:text="Guardar"
             android:textSize="16dp"
             android:background="@drawable/button_background"/>
+
+        <Button
+            android:id="@+id/btnlista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background"
+            android:text="Lista"
+            android:textSize="16dp" />
 
     </LinearLayout>
 
